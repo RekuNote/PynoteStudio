@@ -34,7 +34,7 @@ First, clone the repository to your local machine:
 
 ```sh
 git clone https://github.com/RekuNote/PynoteStudio.git
-cd akerunote
+cd PynoteStudio
 ```
 
 ### Setting Up the Virtual Environment
@@ -94,7 +94,7 @@ PynoteStudio/
 
 ## Usage
 
-To start the AkeruNote server, simply run `main.py`:
+To start Pynote Studio, simply run `main.py`:
 
 ```python3 main.py```
 
