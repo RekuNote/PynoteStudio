@@ -89,7 +89,7 @@ PynoteStudio/
 │   ├── REMOVEPAGE.wav
 │   ├── STOP.wav
 │   └── TOOL.wav
-├── main.py
+└── main.py
 ```
 
 ## Usage
