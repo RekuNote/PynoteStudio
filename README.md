@@ -9,6 +9,7 @@ Pynote Studio is a (semi-functional) Flipnote Studio recreation written in Pytho
 
 - [Features](#features)
 - [Requirements](#requirements)
+- [Keyboard Shortcuts](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
 - [License](#license)
@@ -18,6 +19,19 @@ Pynote Studio is a (semi-functional) Flipnote Studio recreation written in Pytho
 - Create Flipnote animations on PC
 - Export as MP4 (may be broken on Windows?)
 - Save project and come back later
+
+## Keyboard Shortcuts
+
+`B            -    Switch between Red and Blue`<br>
+`X            -    Erase current Page`<br>
+`< Arrow Key  -    Navigate Page Left`<br>
+`> Arrow Key  -    Navigate Page Right`<br>
+`Backspace    -    Delete current Page`<br>
+`CTRL + C     -    Copy current Page`<br>
+`CTRL + V     -    Paste current Page`<br>
+`CTRL + S     -    Save Project (as rawflipnote.rawppm)`<br>
+`CTRL + O     -    Open Project (from rawflipnote.rawppm)`<br>
+`CTRL + E     -    Export as MP4`<br>
 
 ## Requirements
 
