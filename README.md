@@ -22,6 +22,7 @@ Pynote Studio is a (semi-functional) Flipnote Studio recreation written in Pytho
 
 ## Keyboard Shortcuts
 
+`I            -    Show Info Menu`<br>
 `B            -    Switch between Red and Blue`<br>
 `X            -    Erase current Page`<br>
 `< Arrow Key  -    Navigate Page Left`<br>
