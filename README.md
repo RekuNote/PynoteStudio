@@ -3,7 +3,7 @@
     </p>
 </p>
 
-Pynote Studio is a (semi-functional) Flipnote Studio recreation written in Python 3! This project allows you to create flipnotes on your computer!
+Pynote Studio is a Flipnote Studio recreation written in Python 3! This project allows you to create flipnotes on your computer!
 
 ## Table of Contents
 
