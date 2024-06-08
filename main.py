@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import pygame
+import pygame.freetype  # For text rendering
 import sys
 import os
 import random
@@ -34,7 +35,8 @@ SAVE_SOUND = pygame.mixer.Sound("sound/SAVE.wav")  # Load the save sound
 OPEN_SOUND = pygame.mixer.Sound("sound/OPEN.wav")  # Load the open sound
 
 
-# Load images for the third color button
+# Load stuff
+info_sound = pygame.mixer.Sound('sound/INFO.wav')
 red_button_img = pygame.image.load('assets/red.png')
 blue_button_img = pygame.image.load('assets/blue.png')
     
@@ -443,7 +445,101 @@ def open_project():
 
     # Delete the temp_frames folder
     shutil.rmtree('.temp_frames')
-    
+
+font_path = 'assets/font.otf'
+font_size = 12
+
+def display_text_window():
+    global screen
+
+    # Play the tool sound
+    info_sound.play()
+
+    # Save the current screen state
+    saved_screen = screen.copy()
+
+    # Create a new window
+    info_width, info_height = 400, 350
+    info_window = pygame.display.set_mode((info_width, info_height))
+    pygame.display.set_caption('About Pynote Studio')
+
+    # Set up custom font and text
+    pygame.freetype.init()
+    try:
+        font = pygame.freetype.Font(font_path, font_size)
+    except FileNotFoundError:
+        font = pygame.freetype.SysFont(None, font_size)  # Fallback to default font if custom font not found
+    text = "<br>Keyboard Shortcuts:<br>I            -    Show Info Menu<br>B            -    Switch between Red and Blue<br>X            -    Erase current Page<br>< Arrow Key  -    Navigate Page Left<br>> Arrow Key  -    Navigate Page Right<br>Backspace    -    Delete current Page<br>CTRL + C     -    Copy current Page<br>CTRL + V     -    Paste current Page<br>CTRL + S     -    Save Project (as rawflipnote.rawppm)<br>CTRL + O     -    Open Project (from rawflipnote.rawppm)<br>CTRL + E     -    Export as MP4" # I know it looks out of place but do not remove that first <br>! -lexi
+
+    # Load splash image
+    splash_image = pygame.image.load('assets/splash.png')
+    splash_rect = splash_image.get_rect()
+    splash_rect.top = 10
+    splash_rect.centerx = info_width // 2
+
+    # Display the text in the new window
+    orange_color = (251, 97, 0)
+    white_color = (255, 255, 255)
+    info_window.fill(orange_color)  # Orange background
+
+    # Render each line of text
+    lines = text.split('<br>') # you can tell i'm used to HTML, lol -lexi
+    line_height = font.get_sized_height()
+    y = splash_rect.bottom + 10  # Start below splash image
+    line_gap = 8  # Adjust the gap between lines here
+    for line in lines:
+        font.render_to(info_window, (5, y), line, white_color)  # White text, 5px from left
+        y += line_height - line_gap  # Subtract the gap from the line height
+    y += line_gap  # Add the gap after each line
+
+    # Load the back button image
+    back_button_image = pygame.image.load('assets/BACK.png')
+    back_button_rect = back_button_image.get_rect()
+    back_button_rect.topleft = (info_width - back_button_rect.width - 10, info_height - back_button_rect.height - 10)
+
+    # Draw the splash image and back button
+    info_window.blit(splash_image, splash_rect)
+    info_window.blit(back_button_image, back_button_rect.topleft)
+
+    # Render additional centered text at the top
+    additional_text = "© RekuBuild 2024"
+    additional_text_rect = font.get_rect(additional_text)
+    additional_text_rect.centerx = info_width // 2
+    additional_text_rect.top = splash_rect.bottom + 5
+    font.render_to(info_window, additional_text_rect.topleft, additional_text, white_color)
+
+    # Render additional centered text above back button - ignore that this is called a hyperlink, i wanted it to link to the github but m lazy -w- -lexi
+    hyperlink_text = "Pynote Studio v0.2 - by RekuNote"
+    hyperlink_text_rect = font.get_rect(hyperlink_text)
+    hyperlink_text_rect.centerx = info_width // 2
+    hyperlink_text_rect.bottom = back_button_rect.top - 10  # Position above the back button
+    font.render_to(info_window, hyperlink_text_rect.topleft, hyperlink_text, white_color)
+
+    pygame.display.flip()
+
+    # Keep the window open until it's closed
+    info_running = True
+    while info_running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                info_running = False
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                sounds["BACK"].play()
+                info_running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                mouse_pos = event.pos
+                if back_button_rect.collidepoint(mouse_pos):
+                    sounds["BACK"].play()
+                    info_running = False
+
+    # Return to the main application loop
+    screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+    pygame.display.set_caption('Pynote Studio')
+
+    # Restore the saved screen state
+    screen.blit(saved_screen, (0, 0))
+    pygame.display.flip()
+
 # Event handling loop
 running = True
 previous_pos = None  # Track previous mouse position
@@ -455,10 +551,11 @@ screen_refresh()
 
 while running:
     mouse_x, mouse_y = pygame.mouse.get_pos()
-
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+            
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 x, y = event.pos
@@ -561,6 +658,8 @@ while running:
             elif event.key == pygame.K_o:
                 if pygame.key.get_mods() & pygame.KMOD_CTRL:
                     open_project()
+            elif event.key == pygame.K_i:
+                    display_text_window()
 
     draw_cursor_overlay(mouse_x, mouse_y)
     pygame.display.flip()
