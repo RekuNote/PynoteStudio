@@ -21,18 +21,20 @@ Pynote Studio is a Flipnote Studio recreation written in Python 3! This project 
 - Save project and come back later
 
 ## Keyboard Shortcuts
-
-`I            -    Show Info Menu`<br>
-`B            -    Switch between Red and Blue`<br>
-`X            -    Erase current Page`<br>
-`< Arrow Key  -    Navigate Page Left`<br>
-`> Arrow Key  -    Navigate Page Right`<br>
-`Backspace    -    Delete current Page`<br>
-`CTRL + C     -    Copy current Page`<br>
-`CTRL + V     -    Paste current Page`<br>
-`CTRL + S     -    Save Project (as rawflipnote.rawppm)`<br>
-`CTRL + O     -    Open Project (from rawflipnote.rawppm)`<br>
-`CTRL + E     -    Export as MP4`<br>
+```sh
+I            -    Show Info Menu
+B            -    Switch between Red and Blue
+X            -    Erase current Page
+< Arrow Key  -    Navigate Page Left
+> Arrow Key  -    Navigate Page Right
+Backspace    -    Delete current Page
+CTRL + C     -    Copy current Page
+CTRL + V     -    Paste current Page
+CTRL + S     -    Save Project (as rawflipnote.rawppm)
+CTRL + O     -    Open Project (from rawflipnote.rawppm)
+CTRL + E     -    Export as MP4
+```
+<br>
 
 ## Requirements
 
@@ -111,7 +113,9 @@ PynoteStudio/
 
 To start Pynote Studio, simply run `main.py`:
 
-```python3 main.py```
+```sh
+python3 main.py
+```
 
 This will start the application in a new window.
 
