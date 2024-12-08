@@ -67,7 +67,7 @@ source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 
 Install the required packages using `pip`:
 
-```pip install pygame```<br>
+```python3 -m pip install pygame```<br>
 
 ### Directory Structure
 
